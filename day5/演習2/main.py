@@ -180,7 +180,20 @@ class ModelTester:
         inference_time = time.time() - start_time
 
         accuracy = accuracy_score(y_test, y_pred)
-        return {"accuracy": accuracy, "inference_time": inference_time}
+        from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
+        conf_matrix = confusion_matrix(y_test, y_pred)
+        precision = precision_score(y_test, y_pred)
+        recall = recall_score(y_test, y_pred)
+        f1 = f1_score(y_test, y_pred)
+        
+        return {
+            "accuracy": accuracy, 
+            "inference_time": inference_time,
+            "confusion_matrix": conf_matrix,
+            "precision": precision,
+            "recall": recall,
+            "f1_score": f1
+        }
 
     @staticmethod
     def save_model(model, path="models/titanic_model.pkl"):
@@ -278,6 +291,10 @@ if __name__ == "__main__":
 
     print(f"精度: {metrics['accuracy']:.4f}")
     print(f"推論時間: {metrics['inference_time']:.4f}秒")
+    print(f"混同行列:\n{metrics['confusion_matrix']}")
+    print(f"適合率: {metrics['precision']:.4f}")
+    print(f"再現率: {metrics['recall']:.4f}")
+    print(f"F1スコア: {metrics['f1_score']:.4f}")
 
     # モデル保存
     model_path = ModelTester.save_model(model)
