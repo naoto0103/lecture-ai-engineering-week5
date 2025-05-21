@@ -9,7 +9,7 @@ import warnings
 # 警告を抑制
 warnings.filterwarnings("ignore")
 
-# テスト用データパスを定義
+# テスト用データパスを定義（変更テスト）
 DATA_PATH = os.path.join(os.path.dirname(__file__), "../data/Titanic.csv")
 
 
